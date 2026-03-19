@@ -1,0 +1,16 @@
+# /etc/systemd/system/keycloak.service
+[Unit]
+Description=Keycloak Identity and Access Management
+After=network.target
+
+[Service]
+User=keycloak
+Group=keycloak
+Environment=KEYCLOAK_ADMIN=admin
+Environment=KEYCLOAK_ADMIN_PASSWORD=admin123
+ExecStart=/opt/keycloak/bin/kc.sh start
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

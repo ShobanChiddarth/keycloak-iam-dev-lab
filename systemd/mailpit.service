@@ -1,0 +1,14 @@
+# /etc/systemd/system/mailpit.service
+[Unit]
+Description=Mailpit SMTP and Web UI
+After=network.target
+
+[Service]
+User=mailpit
+Group=mailpit
+ExecStart=/usr/local/bin/mailpit --smtp 0.0.0.0:1025 --listen 0.0.0.0:8025
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

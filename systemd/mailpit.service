@@ -6,7 +6,7 @@ After=network.target
 [Service]
 User=mailpit
 Group=mailpit
-ExecStart=/usr/local/bin/mailpit --smtp 0.0.0.0:1025 --listen 0.0.0.0:8025
+ExecStart=/usr/local/bin/mailpit --smtp 0.0.0.0:1025 --listen 0.0.0.0:8025 --ui-tls-cert /etc/mailpit/certs/keycloak.acme.internal.pem --ui-tls-key /etc/mailpit/certs/keycloak.acme.internal-key.pem
 Restart=on-failure
 RestartSec=10
 

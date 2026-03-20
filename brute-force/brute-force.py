@@ -63,4 +63,4 @@ username=jsmith&password=f{passwd}&credentialId=
 """
     response = send_raw_http(content, "keycloak.acme.internal", 8443, True)
 
-    print(response["ok"]+", "+int(response["status_code"])+", "+response["content"])
+    print(str(response["ok"])+", "+int(response["status_code"])+", "+response["content"])

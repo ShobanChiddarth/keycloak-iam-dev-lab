@@ -1,8 +1,33 @@
 import ssl
 import socket
 
-def send_raw_http(content:str, host:str, port:int, use_ssl:bool): # has to return response
-    pass
+def send_raw_http(raw_request: str, host: str, port: int, use_ssl: bool) -> dict:
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+    if use_ssl:
+        context = ssl.create_default_context()
+        sock = context.wrap_socket(sock, server_hostname=host)
+
+    sock.connect((host, port))
+    sock.sendall(raw_request.encode())
+
+    raw_response = b""
+    while True:
+        chunk = sock.recv(4096)
+        if not chunk:
+            break
+        raw_response += chunk
+    sock.close()
+
+    headers_raw, _, content = raw_response.partition(b"\r\n\r\n")
+    status_line = headers_raw.split(b"\r\n")[0]
+    status_code = int(status_line.split(b" ")[1])
+
+    return {
+        "status_code": status_code,
+        "content": content,
+        "ok": 200 <= status_code < 300,
+    }
 
 
 wordlist = []

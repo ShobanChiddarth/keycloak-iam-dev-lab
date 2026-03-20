@@ -32,7 +32,7 @@ def send_raw_http(raw_request: str, host: str, port: int, use_ssl: bool) -> dict
 
 wordlist = []
 with open("/usr/share/wordlists/rockyou.txt", "rb") as fh:
-    wordlist[:] = fh.read().split('\n')
+    wordlist[:] = fh.read().decode("uft-8").split('\n')
 
 
 
